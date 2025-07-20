@@ -3,21 +3,10 @@
 
     use app\models\managers\dto\ManagerDTO;
     use app\models\managers\interfaces\ManagerRepositoryInterface;
+    use app\components\services\Service;
     
-    class ManagerServices {
-        public function __construct(
-            private ManagerRepositoryInterface $repository
-        ) {}
-
-        public function create(ManagerDTO $dto): ManagerDTO {
-            return $this->repository->save($dto);
-        }
-
-        public function update(ManagerDTO $dto): ManagerDTO {
-            return $this->repository->save($dto);
-        }
-
-        public function find(array $params): array {
-            return $this->repository->findBy($params);
+    class ManagerServices extends Service {
+        public function __construct(ManagerRepositoryInterface $repository) {
+            parent::__construct($repository);
         }
     }

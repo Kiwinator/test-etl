@@ -14,6 +14,21 @@
             $db = new Db();
             
             $this->pdo = $db->getConnection();
+        }        
+
+        public function beginTransaction(): void
+        {
+            $this->pdo->beginTransaction();
+        }
+
+        public function commit(): void
+        {
+            $this->pdo->commit();
+        }
+
+        public function rollBack(): void
+        {
+            $this->pdo->rollBack();
         }
 
         abstract protected function getDtoClass(): string;

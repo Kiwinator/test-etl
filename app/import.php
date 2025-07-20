@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . '/vendor/autoload.php';
 
+    use app\modules\import\repositories\ImportRepository;
     
     use app\modules\import\services\ImportServices;
     use app\modules\import\builders\ImportBuilder;
@@ -38,7 +39,7 @@
     use app\models\estates\services\EstateServices;
     use app\models\estates\validators\EstateFormValidator;
 
-    $params = $argv[1];
+    $repository = new ImportRepository();
 
     $agencyRepository = new AgencyRepository();
     $agencyServices = new AgencyServices($agencyRepository);
@@ -71,6 +72,7 @@
     $services = new ImportServices();
     $builder = new ImportBuilder();
     $helper = new ImportHelper(
+        $repository, 
         $agencyServices, $agencyCreateHandler, $agencyUpdateHandler,
         $contactServices, $contactCreateHandler, $contactUpdateHandler,
         $managerServices, $managerCreateHandler, $managerUpdateHandler, 
@@ -78,6 +80,8 @@
     );
     $validator = new ImportFormValidator();
     $handler = new ImportHandler($services, $builder, $helper, $validator);
+
+    $params = $argv[1];
 
     $result = 'Нет данных';
 
